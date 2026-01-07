@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare AI - Advanced Healthcare Diagnosis Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066FF;
+            --secondary: #00D9FF;
+            --accent: #6C5CE7;
+            --success: #00C853;
+            --warning: #FFA726;
+            --danger: #EF5350;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --medical-blue: #4A90E2;
+            --medical-green: #2ECC71;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            top: 40%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -20px) rotate(90deg); }
+            50% { transform: translate(-20px, 20px) rotate(180deg); }
+            75% { transform: translate(20px, 20px) rotate(270deg); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            animation: fadeInLeft 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: white;
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeInLeft 1s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .doctor-illustration {
+            width: 100%;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-illustration::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        /* Diagnosis Card */
+        .diagnosis-card {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .card-header h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .card-header p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* Symptoms Selection */
+        .symptoms-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .symptom-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symptom-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .symptom-card:hover::before {
+            left: 100%;
+        }
+
+        .symptom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .symptom-card.selected {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: var(--primary);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .symptom-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .symptom-icon {
+            font-size: 40px;
+            transition: transform 0.3s;
+        }
+
+        .symptom-card.selected .symptom-icon {
+            transform: rotate(360deg);
+        }
+
+        .symptom-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .symptom-info p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Patient Details */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+        }
+
+        /* Model Selection */
+        .model-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .model-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            text-align: center;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .model-card.active {
+            border-color: white;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .model-card h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .model-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Predict Button */
+        .predict-button {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, var(--medical-green), var(--success));
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .predict-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .predict-button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .predict-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .disease-name {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .confidence-badge {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .risk-high { background: var(--danger); }
+        .risk-medium { background: var(--warning); }
+        .risk-low { background: var(--success); }
+
+        /* Differential Diagnosis */
+        .differential {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .differential h3 {
+            color: var(--dark);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .diff-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .diff-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        /* Treatment Section */
+        .treatment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .treatment-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .treatment-card h3 {
+            color: var(--dark);
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .medicine-item,
+        .advice-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .medicine-item:hover,
+        .advice-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255,255,255,0.95);
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 25px;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            color: #856404;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .symptoms-grid,
+            .details-grid,
+            .model-selector,
+            .treatment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">⚕️</div>
+                <span>MediCare AI</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#diagnosis">Diagnosis</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Healthcare Diagnosis</h1>
+            <p>Advanced machine learning algorithms analyze your symptoms to provide accurate disease predictions and personalized treatment recommendations.</p>
+            <a href="#diagnosis" class="cta-button">Start Diagnosis →</a>
+        </div>
+        <div class="hero-image">
+            <div class="doctor-illustration">🏥</div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="diagnosis">
+        <div class="diagnosis-card fade-in">
+            <div class="card-header">
+                <h2>🔬 Smart Diagnosis System</h2>
+                <p>Select your symptoms and let our AI analyze your condition</p>
+            </div>
+
+            <!-- Symptoms Section -->
+            <div class="symptoms-section">
+                <h3 class="section-title">📋 Select Your Symptoms</h3>
+                <div class="symptoms-grid">
+                    <div class="symptom-card" onclick="toggleSymptom('fever', this)">
+                        <div class="symptom-content">
+                            <div class="symptom-icon">🤒</div>
+                            <div class="symptom-info">
+                                <h3>Fever</h3>
+                                <p>Body temperature above normal</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="symptom-card" onclick="toggleSymptom('cough', this)">
+                        <div class="symptom-content">
+                            <div class="symptom-icon">😷</div>
+                            <div class="symptom-info">
+                                <h3>Cough</h3>
+                                <p>Persistent coughing</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="symptom-card" onclick="toggleSymptom('fatigue', this)">
+                        <div class="symptom-content">
+                            <div class="symptom-icon">😴</div>
+                            <div class="symptom-info">
+                                <h3>Fatigue</h3>
+                                <p>Extreme tiredness</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="symptom-card" onclick="toggleSymptom('breathing', this)">
+                        <div class="symptom-content">
+                            <div class="symptom-icon">🫁</div>
+                            <div class="symptom-info">
+                                <h3>Difficulty Breathing</h3>
+                                <p>Shortness of breath</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patient Details -->
+            <div class="symptoms-section">
+                <h3 class="section-title">👤 Patient Details</h3>
+                <div class="details-grid">
+                    <div class="input-group">
+                        <label>Age</label>
+                        <input type="number" id="age" min="1" max="120" value="30" placeholder="Enter age">
+                    </div>
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <select id="gender">
+                            <option value="0">Female</option>
+                            <option value="1">Male</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Blood Pressure</label>
+                        <select id="bloodPressure">
+                            <option value="0">Low</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="2">High</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Cholesterol Level</label>
+                        <select id="cholesterol">
+                            <option value="0">Low</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="2">High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Selection -->
+            <div class="symptoms-section">
+                <h3 class="section-title">🤖 Select AI Model</h3>
+                <div class="model-selector">
+                    <div class="model-card active" onclick="selectModel('rf', this)">
+                        <h4>🌲 Random Forest</h4>
+                        <p>Best Overall Accuracy</p>
+                    </div>
+                    <div class="model-card" onclick="selectModel('gb', this)">
+                        <h4>📈 Gradient Boosting</h4>
+                        <p>Fast & Accurate</p>
+                    </div>
+                    <div class="model-card" onclick="selectModel('lr', this)">
+                        <h4>📊 Logistic Regression</h4>
+                        <p>Simple & Efficient</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predict Button -->
+            <button class="predict-button" onclick="predict()">
+                <span style="position: relative; z-index: 1;">🔬 Analyze & Diagnose</span>
+            </button>
+
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>AI is analyzing your symptoms...</p>
+            </div>
+
+            <!-- Results -->
+            <div class="results-section" id="results">
+                <!-- Results will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="disclaimer">
+                <h3 style="margin-bottom: 15px;">⚠️ Medical Disclaimer</h3>
+                <p>This AI-powered diagnosis tool is for informational purposes only and should NOT replace professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. In case of emergency, call 911 immediately.</p>
+            </div>
+            <p style="margin-top: 30px; color: #666;">© 2024 MediCare AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let selectedSymptoms = {
+            fever: 0,
+            cough: 0,
+            fatigue: 0,
+            breathing: 0
+        };
+        let selectedModel = 'rf';
+
+        function toggleSymptom(symptom, element) {
+            selectedSymptoms[symptom] = selectedSymptoms[symptom] === 1 ? 0 : 1;
+            element.classList.toggle('selected');
+        }
+
+        function selectModel(model, element) {
+            selectedModel = model;
+            document.querySelectorAll('.model-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // API Configuration
+        const API_URL = 'http://127.0.0.1:5000/predict';
+
+        async function predict() {
+            // Validate inputs
+            const age = parseInt(document.getElementById('age').value);
+            if (!age || age < 1 || age > 120) {
+                alert('Please enter a valid age (1-120)');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('results').classList.remove('active');
+
+            // Prepare data - EXACTLY matching Flask API expectations
+            const requestData = {
+                fever: selectedSymptoms.fever,
+                cough: selectedSymptoms.cough,
+                fatigue: selectedSymptoms.fatigue,
+                breathing: selectedSymptoms.breathing,
+                age: age,
+                gender: parseInt(document.getElementById('gender').value),
+                bloodPressure: parseInt(document.getElementById('bloodPressure').value),
+                cholesterol: parseInt(document.getElementById('cholesterol').value),
+                model: selectedModel
+            };
+
+            console.log('Sending to API:', requestData);
+
+            try {
+                // Call Flask API with correct method and headers
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error:', errorText);
+                    throw new Error(`API returned ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('API Response:', result);
+
+                if (result.success) {
+                    displayResults(result);
+                    document.getElementById('loading').classList.remove('active');
+                    document.getElementById('results').classList.add('active');
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    throw new Error(result.message || 'Prediction failed');
+                }
+
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                document.getElementById('loading').classList.remove('active');
+                
+                alert('⚠️ Connection Error\n\nCannot reach API server. Make sure:\n1. Flask server is running (python app.py)\n2. Server shows: Running on http://127.0.0.1:5000\n3. Check console (F12) for details\n\nUsing demo mode for now...');
+                
+                // Fallback to demo data
+                const mockPrediction = getMockPrediction();
+                displayResults(mockPrediction);
+                document.getElementById('results').classList.add('active');
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function getMockPrediction() {
+            const age = parseInt(document.getElementById('age').value);
+            const symptomCount = Object.values(selectedSymptoms).reduce((a, b) => a + b, 0);
+            
+            // Mock prediction logic
+            let disease = 'Common Cold';
+            let confidence = 75 + Math.random() * 15;
+            let risk = 'low';
+
+            if (selectedSymptoms.fever && selectedSymptoms.cough && selectedSymptoms.breathing) {
+                disease = 'Pneumonia';
+                confidence = 85 + Math.random() * 10;
+                risk = age > 60 ? 'high' : 'medium';
+            } else if (selectedSymptoms.cough && selectedSymptoms.breathing) {
+                disease = 'Asthma';
+                confidence = 82 + Math.random() * 12;
+                risk = 'medium';
+            } else if (symptomCount >= 2) {
+                disease = 'Influenza';
+                confidence = 78 + Math.random() * 15;
+                risk = age > 60 ? 'medium' : 'low';
+            }
+
+            return {
+                disease,
+                confidence: confidence.toFixed(1),
+                risk,
+                top5: [
+                    { disease, confidence: confidence.toFixed(1) },
+                    { disease: 'Bronchitis', confidence: (confidence - 10).toFixed(1) },
+                    { disease: 'Common Cold', confidence: (confidence - 20).toFixed(1) },
+                    { disease: 'Sinusitis', confidence: (confidence - 25).toFixed(1) },
+                    { disease: 'Allergic Rhinitis', confidence: (confidence - 30).toFixed(1) }
+                ],
+                medicines: getMedicines(disease),
+                advice: getAdvice(disease)
+            };
+        }
+
+        function getMedicines(disease) {
+            const medicineDB = {
+                'Influenza': [
+                    '💊 Oseltamivir (Tamiflu) 75mg - Take twice daily for 5 days',
+                    '💊 Acetaminophen 500mg - Every 6 hours for fever',
+                    '💊 Ibuprofen 400mg - Every 8 hours for body aches',
+                    '💧 Increase fluid intake to 8-10 glasses daily'
+                ],
+                'Pneumonia': [
+                    '💊 Amoxicillin 500mg - Three times daily for 7-10 days',
+                    '💊 Azithromycin 500mg - Once daily for 5 days',
+                    '💊 Acetaminophen for fever management',
+                    '💨 Oxygen therapy if O2 saturation below 92%'
+                ],
+                'Asthma': [
+                    '💨 Albuterol Inhaler - 2 puffs every 4-6 hours as needed',
+                    '💨 Fluticasone 110mcg - 2 puffs twice daily',
+                    '💊 Montelukast 10mg - Once daily at bedtime',
+                    '🆘 Keep emergency rescue inhaler accessible always'
+                ],
+                'Common Cold': [
+                    '💊 Acetaminophen 500mg - Every 6 hours for pain/fever',
+                    '💊 Pseudoephedrine 30mg - Every 6 hours for congestion',
+                    '💊 Vitamin C 1000mg - Once daily',
+                    '🍯 Honey with warm lemon water - 3-4 times daily'
+                ],
+                'Bronchitis': [
+                    '💨 Albuterol inhaler - 2 puffs every 4-6 hours',
+                    '💊 Prednisone 20mg - Once daily for 5 days',
+                    '💊 Dextromethorphan cough syrup - As needed',
+                    '💧 Use warm mist humidifier continuously'
+                ]
+            };
+            return medicineDB[disease] || ['⚕️ Consult doctor for specific treatment'];
+        }
+
+        function getAdvice(disease) {
+            const adviceDB = {
+                'Influenza': [
+                    '🛏️ REST: Get 8-10 hours of sleep per night',
+                    '💧 HYDRATION: Drink at least 8-10 glasses of water daily',
+                    '🏠 ISOLATION: Stay home for 7 days or until fever-free for 24 hours',
+                    '🤧 HYGIENE: Cover mouth when coughing, wash hands frequently',
+                    '🌡️ MONITOR: Check temperature twice daily',
+                    '📞 SEEK HELP: If difficulty breathing or chest pain develops'
+                ],
+                'Pneumonia': [
+                    '💊 ANTIBIOTICS: Complete FULL course - Critical!',
+                    '💧 FLUIDS: Drink warm liquids - soup, tea, water',
+                    '🛏️ REST: Complete bed rest for 1-2 weeks minimum',
+                    '🌡️ MONITOR: Temperature, breathing rate, oxygen levels',
+                    '🚨 EMERGENCY: Difficulty breathing, bluish lips, confusion',
+                    '🔄 FOLLOW-UP: Chest X-ray 6 weeks after treatment'
+                ],
+                'Asthma': [
+                    '🚭 AVOID TRIGGERS: Smoke, dust, pollen, pet dander, cold air',
+                    '💨 BREATHING: Practice pursed-lip breathing exercises daily',
+                    '🏃 EXERCISE: Moderate activity with proper warm-up',
+                    '📊 MONITOR: Keep peak flow meter readings daily',
+                    '🆘 EMERGENCY: Use rescue inhaler, call 911 if no improvement',
+                    '💊 COMPLIANCE: Never skip controller medications'
+                ],
+                'Common Cold': [
+                    '💧 HYDRATION: Warm liquids - soup, tea, lemon water',
+                    '🛏️ REST: Extra sleep helps immune system',
+                    '🤧 HYGIENE: Wash hands every 2 hours, sanitize surfaces',
+                    '🏠 ISOLATION: Stay home to avoid spreading',
+                    '🍯 HONEY: Natural cough suppressant (not for infants)',
+                    '⏱️ DURATION: Symptoms resolve in 7-10 days typically'
+                ],
+                'Bronchitis': [
+                    '💨 HUMIDITY: Use warm mist humidifier 24/7',
+                    '☕ WARM DRINKS: Tea with honey soothes airways',
+                    '🚭 AVOID: Smoking and all irritants immediately',
+                    '🛏️ REST: Avoid strenuous activities for 2 weeks',
+                    '🌡️ MONITOR: If fever persists over 3 days, see doctor',
+                    '⏱️ COUGH: May last 2-3 weeks after other symptoms'
+                ]
+            };
+            return adviceDB[disease] || ['📞 Schedule appointment with healthcare provider'];
+        }
+
+        function displayResults(data) {
+            const riskColors = {
+                'high': 'risk-high',
+                'medium': 'risk-medium',
+                'low': 'risk-low'
+            };
+
+            const riskEmojis = {
+                'high': '🔴',
+                'medium': '🟡',
+                'low': '🟢'
+            };
+
+            const resultsHTML = `
+                <!-- Main Diagnosis -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <div>
+                            <div style="font-size: 18px; opacity: 0.9; margin-bottom: 10px;">AI Diagnosis Result</div>
+                            <div class="disease-name">${data.disease}</div>
+                            <div class="risk-badge ${riskColors[data.risk]}">
+                                ${riskEmojis[data.risk]} ${data.risk.toUpperCase()} RISK
+                            </div>
+                        </div>
+                        <div class="confidence-badge">
+                            ${data.confidence}% Confidence
+                        </div>
+                    </div>
+                    <p style="opacity: 0.95; font-size: 16px; line-height: 1.6;">
+                        Based on your symptoms, our AI model has identified the most likely condition. 
+                        Review the treatment recommendations below and consult with a healthcare professional.
+                    </p>
+                </div>
+
+                <!-- Differential Diagnosis -->
+                <div class="differential">
+                    <h3>📊 Differential Diagnosis - Top 5 Possibilities</h3>
+                    ${data.top5.map((item, index) => `
+                        <div class="diff-item">
+                            <div>
+                                <strong>${index + 1}. ${item.disease}</strong>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span style="font-weight: 600; color: #667eea;">${item.confidence}%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${item.confidence}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Treatment Plan -->
+                <div class="treatment-grid">
+                    <!-- Medicines -->
+                    <div class="treatment-card">
+                        <h3>💊 Recommended Medicines</h3>
+                        ${data.medicines.map(med => `
+                            <div class="medicine-item">${med}</div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Medical Advice -->
+                    <div class="treatment-card">
+                        <h3>💡 Medical Advice & Care</h3>
+                        ${data.advice.map(adv => `
+                            <div class="advice-item">${adv}</div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px;">
+                    <div class="treatment-card" style="text-align: center;">
+                        <div style="font-size: 40px; margin-bottom: 10px;">⏱️</div>
+                        <h4 style="margin-bottom: 10px;">Recovery Time</h4>
+                        <p style="color: #666;">Typically 7-14 days with proper treatment</p>
+                    </div>
+                    <div class="treatment-card" style="text-align: center;">
+                        <div style="font-size: 40px; margin-bottom: 10px;">👨‍⚕️</div>
+                        <h4 style="margin-bottom: 10px;">Follow-Up</h4>
+                        <p style="color: #666;">Consult doctor if symptoms worsen</p>
+                    </div>
+                    <div class="treatment-card" style="text-align: center;">
+                        <div style="font-size: 40px; margin-bottom: 10px;">📞</div>
+                        <h4 style="margin-bottom: 10px;">Emergency</h4>
+                        <p style="color: #666;">Call 911 for severe symptoms</p>
+                    </div>
+                </div>
+
+                <!-- Model Info -->
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin-top: 30px; text-align: center;">
+                    <p style="color: #666; font-size: 14px;">
+                        <strong>Model Used:</strong> ${selectedModel === 'rf' ? 'Random Forest' : selectedModel === 'gb' ? 'Gradient Boosting' : 'Logistic Regression'} | 
+                        <strong>Analysis Date:</strong> ${new Date().toLocaleDateString()} | 
+                        <strong>Confidence Level:</strong> ${data.confidence}%
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('results').innerHTML = resultsHTML;
+
+            // Animate progress bars
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach((bar, index) => {
+                    bar.style.width = data.top5[index].confidence + '%';
+                });
+            }, 100);
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#diagnosis').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Add enter key support for age input
+        document.getElementById('age').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') predict();
+        });
+
+        // Validate age input
+        document.getElementById('age').addEventListener('input', (e) => {
+            let value = parseInt(e.target.value);
+            if (value < 1) e.target.value = 1;
+            if (value > 120) e.target.value = 120;
+        });
+
+        // Add particle effect on button click
+        document.querySelector('.predict-button').addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                width: 0;
+                height: 0;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.5);
+                transform: translate(-50%, -50%);
+                animation: ripple 0.6s ease-out;
+                pointer-events: none;
+            `;
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    width: 300px;
+                    height: 300px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        //Preload check - ensure all symptoms are clickable
+        console.log('✅ MediCare AI System Loaded');
+        console.log('🔬 Ready for diagnosis');
+        console.log('💡 Select symptoms and click "Analyze & Diagnose"');
+    </script>
+</body>
+</html>
